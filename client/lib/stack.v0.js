@@ -1,6 +1,6 @@
 /* Snaffled from Mike Bostock: https://github.com/mbostock/stack */
 
-var stack = (function() {
+var stack = function() {
   var stack = {},
       event = d3.dispatch("activate", "deactivate"),
       section = d3.selectAll("section"),
@@ -187,4 +187,5 @@ var stack = (function() {
   d3.rebind(stack, event, "on");
 
   return stack;
-})();
+
+}
