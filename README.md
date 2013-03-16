@@ -50,3 +50,25 @@ of js getting automagically loaded. This is the source of the magic and we are
 not ready to look upon it yet so let's moving along.
 
 
+Building a talk
+---------------
+
+So the prefabricated project has put our css, js and html resources in the root 
+of the project. That's ok for showing that it works but the theory is any files 
+and folders in the root will get run on both client and server. What a racy idea.
+
+Still we're professionals, so it feel semantically incorrect to have front end
+resources mixed up with server side ones, so we'll apply our OCD wand and move
+them into a `client` directory. 
+
+**Magic Alert**: the folders: 'client', 'server', 'test' & 'public' are special.
+
+Fortunately they do what they say on the tin. 
+- `client` is for your front-end code. Some magic occurs. JS & CSS elements are added to the html head element for you. In production you get minification, concatenation and cache friendly resource versioning too.
+- `server` is for JS files that are only to be executed on the server. Secrets and other mysteries can go here.
+- `public` is for static resources that you want served up on a stable url with no magic.
+- `test` files are only executed when running `meteor test`.
+
+JS files placed anywhere else are available on both client and server. This is useful for defining common collections and models.
+
+
