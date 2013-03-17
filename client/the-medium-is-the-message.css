@@ -1,1 +1,22 @@
-/* CSS declarations go here */
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+
+h1{
+	font-size: 1.6em;
+}
+
+li{
+	padding-bottom: 40px;
+}
+
+pre {
+	font-size: 30px;
+	color: white;
+	background-color: #333;
+}
+
+.stack {
+	/*padding-top:100px*/;
+}

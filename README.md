@@ -5,9 +5,9 @@ A talk about [Meteor][], [MongoDB][] & [D3][], as a Meteor app.
 
 So, what should we pack for this trip?
 
-- [Meteor][]
-- [D3][]], If you're gonna be reactive you may as well bring a visualisation tool up to the job.
-- [Stack][], HTML slides by _the_ d3 wizard.
+- [Meteor][], "A better way to build apps."
+- [D3][], If you're gonna be reactive you may as well bring a visualisation tool up to the job.
+- [Stack][], HTML slides by _the_ D3 wizard.
 - As much caffine and up tempo music as fits in the head.
 
 Bootstrap all the things
@@ -75,30 +75,31 @@ Adding in the code for [Stack][]
 
 ```
 
-**Magic Alert**: the folders: `client`, `server`, `public` & `test` are special.
-
+**Magic Alert**: the folders: `client`, `server`, `public` & `test` are special. 
 Fortunately they do what they say on the tin. 
+
 - `client` is for your front-end code. Some magic occurs. JS & CSS elements are added to the html head element for you. In production you get minification, concatenation and cache friendly resource versioning too.
 - `server` is for JS files that are only to be executed on the server. Secrets and other mysteries can go here.
 - `public` is for resources that you want served up on a stable url with no magic. (favicon, images etc.)
 - `test` files are only executed when running `meteor test`.
 
-I was compelled to put the stack code into a `lib` dir as I didn't write it, so
-like a troublesome child, I'd rather not look at too much. 
-As a bonus Meteor's load order takes this kind of thing into account:
+I was compelled to put the stack code into a `lib` dir as I didn't write it, and
+like a victorian child, I'd rather not look at it too much. As a bonus, Meteor's 
+load order takes this kind of thing into account:
 
 > Files in subdirectories are loaded before files in parent directories, so that files in the deepest subdirectory are loaded first
 
 Load Order & You
 ----------------
 
-I had to make some minor edits to Stack to get it to play nicely... As per page
-1 of the docs: http://docs.meteor.com/#structuringyourapp
+I had to make some minor edits to Stack to get it to play nicely... As per page 1 of the docs:
 
 > It is best to write your application in such a way that it is insensitive to the order in which files are loaded, for example by using Meteor.startup
+http://docs.meteor.com/#structuringyourapp
 
-We are in framework land now, so to benefit from the magic we have to play by 
-the rules. To get it working I had to:
+We're in framework land now; to benefit from the magic we have to play by the rules. 
+
+To get it working I had to:
 
 - Convert it from a self executing function `var stack = (function(){...})();` to a simple function that we can call from `Meteor.startup`
 - Move the background image out to the `public` folder
