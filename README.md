@@ -108,7 +108,51 @@ To get it working I had to:
 In return, my files are minified, versioned and cached so it's a fair trade.
 
 
+Getting up
+----------
+
+```meteor deploy goto --password```
+
+Get's your app live on [goto.meteor.com]. The `--password` will prompt you to 
+choose a password so that only you can then redeploy to that domain. 
+Lo-fi, but it works, and they've got [grander plans afoot](http://meteor.com/blog/2012/07/25/meteors-new-112-million-development-budget.
+
+Get a dump of the mongo db from your live app via meteor-dump: https://gist.github.com/olizilla/5209369
+
+Where the magic lives
+---------------------
+
+Mongo & minimongo. Making mongo available on the client and transparently syncing it with the server.
+From this one trick you get:
+
+- Uniform data access code. Both client & server uses the same api, so less to learn.
+- Data over the wire. Keep your app repsonsive by pushing data diffs instead of waiting for page reloads.
+
+And like levelling up in Civilisation, once you have those technologies you get:
+
+- Reactive views. Your UI updates in front of your eyes as new data is received.
+- Latency compensation. Each user changes his local database; they see instant updates. Mongo syncs and patches the changes in the background.
+
+Sure, there are some other nice things like:
+
+- JS ALL THE THINGS. 1 language for both client and server, keeps things simple, but credit there goes to NodeJS
+- Hot code deploy. Actually totally awesome, but more for the novelty of seein your app update without having to hit refresh.
+- Free hosting. A neat trick. Like node's killer feature, package management done right, simple hosting might just be Meteor's.
+
+But... it's the transparent and unified data magic that means you can crank out compelling apps in hours rather than days.
+
+Contention Bones
+----------------
+
+- "Can I use it in production yet?". Yes. No. How about you build your app, test it, and decide for yourself. It will take you a day, so don't go complaining about time investment.
+- "Will it scale". To paraphrase [Cory Doctorow], you have more to fear from obscurity than from collapsing at scale. Write your killer feature, go live, prove it's a good idea, then load test it. Maybe it survives, maybe you have to contirbute some patches back to the community.
+- "Fibers! I use Node, I love callbacks". Yep, this is just plain old contentious. Basically Nodes answer for staying scalable is by encouraging the use of callbacks for all the things. Meteor uses Fibers, which is a node module that undoes that teaching, and flips node over to use V8's coroutine/thread support. Front end developers are used to using callbacks, server side dev's from other languages are used to having threads and code that looks synchronous. It's a dull debate. I suggest you avoid it. Try both, see which one you like. Meteor uses Fibers.
+
+
+[goto.meteor.com]: http://goto.meteor.com
 [Meteor]: http://meteor.com/
 [MongoDB]: http://www.mongodb.org/
 [D3]: http://d3js.org/
 [Stack]: http://mbostock.github.com/stack/
+[NodeJS]: http://meteor.com/
+
