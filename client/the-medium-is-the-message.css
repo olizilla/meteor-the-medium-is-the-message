@@ -1,6 +1,7 @@
 body {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 300;
+   overflow-x:hidden; /* FF shows scroll horizontal scrollbars */
 }
 
 h1{
@@ -15,8 +16,4 @@ pre {
 	font-size: 30px;
 	color: white;
 	background-color: #333;
-}
-
-.stack {
-	/*padding-top:100px*/;
 }

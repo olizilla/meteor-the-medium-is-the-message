@@ -125,7 +125,7 @@ Where the magic lives
 Mongo & minimongo. Making mongo available on the client and transparently syncing it with the server.
 From this one trick you get:
 
-- Uniform data access code. Both client & server uses the same api, so less to learn.
+- Uniform data access code. The same API on client & server means less to learn.
 - Data over the wire. Keep your app repsonsive by pushing data diffs instead of waiting for page reloads.
 
 And like levelling up in Civilisation, once you have those technologies you get:
@@ -140,6 +140,13 @@ Sure, there are some other nice things like:
 - Free hosting. A neat trick. Like node's killer feature, package management done right, simple hosting might just be Meteor's.
 
 But... it's the transparent and unified data magic that means you can crank out compelling apps in hours rather than days.
+
+Rocking out
+-----------
+
+
+
+
 
 Contention Bones
 ----------------
