@@ -6,6 +6,8 @@
  */
 Meteor.startup(function(){
 
+	window.startTime = now();
+
 	// Setup the slideshow. 
 	stack();
 
@@ -28,16 +30,21 @@ Meteor.startup(function(){
 	});
 
 	playerHeartbeat();
+
+	// Deps.autorun(playerGraph);
 });
 
 function audio(){
-	audio.coin = new buzz.sound( "/audio/coin", { formats: [ "ogg", "mp3" ] });
+	audio.coin = new buzz.sound( "/audio/coin", { formats: [ "ogg", "mp3" ] }).setVolume(20);
+	audio.beat = new buzz.sound( "/audio/beat", { formats: [ "ogg", "mp3" ] });
+	buzz.all().load();
 }
 
 function retrieveOrCreatePlayer(){
 
 	function createPlayer() {
-		var playerId = Players.insert({ lastActive: now() });
+		var justNow = now();
+		var playerId = Players.insert({ created: justNow, lastActive: justNow });
 		window.localStorage['playerId'] = playerId;
 		return playerId;
 	}
@@ -70,11 +77,68 @@ function updateLastActive(){
 }
 
 function playerHeartbeat(){
-	updateLastActive();
-	Meteor.setTimeout(function(){ playerHeartbeat(); }, heartbeatInterval); // N
-	// console.log('Player ' + Session.get('playerId') + ' STILL ALIVE');
+
+	if(heartbeatInterval > 0){
+		var timestamp = updateLastActive();
+		
+		audio.beat.setVolume(100).play().fadeOut(3000, function(){
+			audio.beat.stop();
+		});
+
+		Meteor.setTimeout(function(){ playerHeartbeat(); }, heartbeatInterval); // 
+
+		console.log('YOU ARE ALIVE!', timestamp);
+
+	} else {
+		console.log('YOU ARE DEAD!', now());
+	}
+}
+
+function stopHeart(){
+	oldHeartbeatInterval = heartbeatInterval;
+	heartbeatInterval = 0;
+}
+
+function startHeart(){
+	heartbeatInterval = oldHeartbeatInterval;
+	playerHeartbeat();
 }
 
 function activePlayers(){
 	return Players.find({ lastActive: { $gt: now() - deadAfter } });
+}
+
+Meteor.setInterval(function(){
+	playerGraph();	
+}, 200);
+
+var tick = 0;
+
+function playerGraph(){
+
+	var svg = d3.select('svg');
+	if (svg[0][0].clientWidth < 1){return};
+
+	tick = tick + 1;
+
+	// Data: Join the data & it's representation
+	var dots = svg.selectAll('circle').data(Players.find().fetch(), function(d){return d._id});
+
+	// Enter: The set of new data points without an existing representation
+	dots.enter()
+			.append('circle');
+
+	// Update: update all points with both data and representation. The circles created during the enter() step above are also updated.
+	dots.transition()
+			.attr("cx", function(d) { return (tick * 100) % svg[0][0].clientWidth } )
+			.attr("cy", function(d) { return 10 } )
+			.attr("r", function(d) { return 4 } )
+			.attr('fill', function(d) { return "#991111" });
+			// .attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8) });
+
+	// Exit: the set of representations without a data
+	dots.exit()
+			.transition()
+			.attr("fill", '#FFFFFF').attr('r', 0)
+			.remove();
 }
