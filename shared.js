@@ -3,6 +3,13 @@
  * Common collections for client and server.
  */
 
+var heartbeatInterval = 5000; //ms
+var deadAfter = 10000; //ms
+
+function now(){
+	return Date.now();
+}
+
 Players = new Meteor.Collection("players");
 
 // TODO: this is equivalent to using the insecure package, tighten up.

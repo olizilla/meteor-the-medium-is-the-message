@@ -1,6 +1,3 @@
-var heartbeatInterval = 5000 //ms
-var deadAfter = 10000 //ms
-
 /*
  * Meteor.startup "will run as soon as the DOM is ready and any <body> templates
  * from your .html files have been put on the screen."
@@ -12,6 +9,8 @@ Meteor.startup(function(){
 	// Setup the slideshow. 
 	stack();
 
+	audio();
+
 	// Set up the current user once the Players collection is ready.
 	Meteor.subscribe('allplayers', function(){	
 		retrieveOrCreatePlayer();
@@ -21,6 +20,7 @@ Meteor.startup(function(){
 	Players.find().observeChanges({
 		added:function(id, fields){
 			console.log('New Challenger Appears:', id);
+			audio.coin.play();
 		},
 		changed: function(id, fields){
 			//console.log('Player updated', id, fields);
@@ -30,6 +30,9 @@ Meteor.startup(function(){
 	playerHeartbeat();
 });
 
+function audio(){
+	audio.coin = new buzz.sound( "/audio/coin", { formats: [ "ogg", "mp3" ] });
+}
 
 function retrieveOrCreatePlayer(){
 
@@ -60,12 +63,10 @@ function retrieveOrCreatePlayer(){
 	return playerId;
 }
 
-function now(){
-	return Date.now();
-}
-
 function updateLastActive(){
-	Players.update(Session.get('playerId'), { $set: { lastActive: now() } });
+	var timestamp = now(); // see shared.js
+	Players.update(Session.get('playerId'), { $set: { lastActive: timestamp } });
+	return timestamp;
 }
 
 function playerHeartbeat(){
@@ -75,6 +76,5 @@ function playerHeartbeat(){
 }
 
 function activePlayers(){
-	Players.find({ lastActive: { $gt: now() - deadAfter } });
+	return Players.find({ lastActive: { $gt: now() - deadAfter } });
 }
-

@@ -1,7 +1,4 @@
 
 Meteor.publish("allplayers", function(){
-	return Players.find({});
+	return Players.find({ lastActive: { $gt: now() - deadAfter } });
 });
-
-
-
