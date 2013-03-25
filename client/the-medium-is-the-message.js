@@ -153,7 +153,7 @@ function playerGraph(){
 	var dotUpdate = dot.transition();
 	
 	dotUpdate.attr('transform', function() { return 'translate(' +(width / 2)+ ','+(height / 2)+')';})
-	dotUpdate.select('circle').attr('r', function(d){ return d * 10; });
+	dotUpdate.select('circle').attr('r', function(d){ return d * 5; });
 	dotUpdate.select('text').text(function(d) {return d;});
 	
 
