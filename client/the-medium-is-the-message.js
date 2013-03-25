@@ -128,21 +128,34 @@ var tick = 0;
 function playerGraph(){
 
 	var svg = d3.select('svg');
+	var width = parseInt(svg[0][0].getAttribute('width'));
+	var height = parseInt(svg[0][0].getAttribute('height'));
 
 	tick = tick + 1;
-
-	var dot = svg.selectAll('circle').data([Players.find().count()]);
-
-	dot.enter()
-		.append('circle')
-		.attr('cx', parseInt(svg[0][0].getAttribute('width')) / 2 )
-		.attr('cy', parseInt(svg[0][0].getAttribute('height')) / 2 )
-		// .attr('r', function(d){ return d * 10; })
-		.attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8); });
-
-	dot
-		.transition()
-		.attr('r', function(d){ return d * 10; });
+	
+	var dot = svg.selectAll('g').data([Players.find().count()]);
+	
+	var dotEnter = dot.enter().append('g');
+	
+	dotEnter.append('circle')
+		.attr('fill', function() { return "#" + Math.random().toString(16).slice(2, 8); });
+	
+	dotEnter.append('text')
+		.style('font-size', '36px')
+		.style('font-weight', 'bold')
+		.style('fill', '#fff')
+		.style('stroke', '#000')
+		.style('stroke-width', 2)
+		.text(function(d) {return d;})
+		.style('text-anchor', 'middle')
+		.attr('dy', '.35em');
+	
+	var dotUpdate = dot.transition();
+	
+	dotUpdate.attr('transform', function() { return 'translate(' +(width / 2)+ ','+(height / 2)+')';})
+	dotUpdate.select('circle').attr('r', function(d){ return d * 10; });
+	dotUpdate.select('text').text(function(d) {return d;});
+	
 
 
 	// Data: Join the data & it's representation
