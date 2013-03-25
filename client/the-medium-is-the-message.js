@@ -32,6 +32,8 @@ Meteor.startup(function(){
 	playerHeartbeat();
 
 	// Deps.autorun(playerGraph);
+
+	// playerFace();
 });
 
 function audio(){
@@ -110,35 +112,111 @@ function activePlayers(){
 
 Meteor.setInterval(function(){
 	playerGraph();	
-}, 200);
+}, 1000);
 
 var tick = 0;
 
 function playerGraph(){
 
 	var svg = d3.select('svg');
-	if (svg[0][0].clientWidth < 1){return};
+	if (svg[0][0].clientWidth < 1){ return; }
 
 	tick = tick + 1;
 
+	var dot = svg.selectAll('circle').data([Players.find().count()]);
+
+	dot.enter()
+		.append('circle')
+		.attr('cx', svg[0][0].clientWidth / 2 )
+		.attr('cy', svg[0][0].clientHeight / 2 )
+		// .attr('r', function(d){ return d * 10; })
+		.attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8); });
+
+	dot
+		.transition()
+		.attr('r', function(d){ return d * 10; });
+
+
 	// Data: Join the data & it's representation
-	var dots = svg.selectAll('circle').data(Players.find().fetch(), function(d){return d._id});
+	// var dots = svg.selectAll('circle').data(Players.find().fetch(), function(d){return d._id});
 
-	// Enter: The set of new data points without an existing representation
-	dots.enter()
-			.append('circle');
+	// // Enter: The set of new data points without an existing representation
+	// dots.enter()
+	// 		.append('circle');
 
-	// Update: update all points with both data and representation. The circles created during the enter() step above are also updated.
-	dots.transition()
-			.attr("cx", function(d) { return (tick * 100) % svg[0][0].clientWidth } )
-			.attr("cy", function(d) { return 10 } )
-			.attr("r", function(d) { return 4 } )
-			.attr('fill', function(d) { return "#991111" });
-			// .attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8) });
+	// // Update: update all points with both data and representation. The circles created during the enter() step above are also updated.
+	// dots.transition()
+	// 		.attr("cx", function(d) { return (tick * 100) % svg[0][0].clientWidth } )
+	// 		.attr("cy", function(d) { return 10 } )
+	// 		.attr("r", function(d) { return 4 } )
+	// 		.attr('fill', function(d) { return "#991111" });
+	// 		// .attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8) });
 
-	// Exit: the set of representations without a data
-	dots.exit()
-			.transition()
-			.attr("fill", '#FFFFFF').attr('r', 0)
-			.remove();
+	// // Exit: the set of representations without a data
+	// dots.exit()
+	// 		.transition()
+	// 		.attr("fill", '#FFFFFF').attr('r', 0)
+	// 		.remove();
+
 }
+
+// function playerFace(){
+ 
+//   var streaming = false,
+//       video        = document.querySelector('#video'),
+//       cover        = document.querySelector('#cover'),
+//       canvas       = document.querySelector('#canvas'),
+//       photo        = document.querySelector('#photo'),
+//       startbutton  = document.querySelector('#startbutton'),
+//       width = 320,
+//       height = 0;
+ 
+//   navigator.getMedia = ( navigator.getUserMedia ||
+//                          navigator.webkitGetUserMedia ||
+//                          navigator.mozGetUserMedia ||
+//                          navigator.msGetUserMedia);
+ 
+//   navigator.getMedia(
+//     {
+//       video: true,
+//       audio: false
+//     },
+//     function(stream) {
+//       if (navigator.mozGetUserMedia) {
+//         video.mozSrcObject = stream;
+//       } else {
+//         var vendorURL = window.URL || window.webkitURL;
+//         video.src = vendorURL.createObjectURL(stream);
+//       }
+//       video.play();
+//     },
+//     function(err) {
+//       console.log("An error occured! " + err);
+//     }
+//   );
+ 
+//   video.addEventListener('canplay', function(ev){
+//     if (!streaming) {
+//       height = video.videoHeight / (video.videoWidth/width);
+//       video.setAttribute('width', width);
+//       video.setAttribute('height', height);
+//       canvas.setAttribute('width', width);
+//       canvas.setAttribute('height', height);
+//       streaming = true;
+//     }
+//   }, false);
+ 
+//   function takepicture() {
+//     canvas.width = width;
+//     canvas.height = height;
+//     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+//     var data = canvas.toDataURL('image/png');
+//     photo.setAttribute('src', data);
+//   }
+ 
+//   startbutton.addEventListener('click', function(ev){
+//       takepicture();
+//     ev.preventDefault();
+//   }, false);
+ 
+// }

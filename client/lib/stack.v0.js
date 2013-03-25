@@ -20,7 +20,10 @@ var stack = function() {
       n = section[0].length;
 
   // Invert the z-index so the earliest slides are on top.
-  section.classed("stack", true).style("z-index", function(d, i) { return n - i; });
+  section.classed("stack", true)
+  .style("z-index", function(d, i) { return n - i; })
+  .attr("id", function(d, i){ return i })
+
 
   // Detect the slide height (by showing an active slide).
   section.classed("active", true);
