@@ -19,13 +19,16 @@ Meteor.startup(function(){
 	});	
 
 	// Watch for changes
-	Players.find().observeChanges({
+	Players.find({ lastActive: { $gt: now() - deadAfter } }).observeChanges({
 		added:function(id, fields){
 			console.log('New Challenger Appears:', id);
 			audio.coin.play();
 		},
 		changed: function(id, fields){
 			//console.log('Player updated', id, fields);
+		},
+		removed: function(id){
+			console.log("Head Shot! Player " + id + " is dead.");
 		}
 	});
 
