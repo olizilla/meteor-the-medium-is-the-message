@@ -34,6 +34,12 @@ Meteor.startup(function(){
 	// Deps.autorun(playerGraph);
 
 	// playerFace();
+	
+	// Explicitly set the width & height of the SVG element on the dot slide to be the width & height of the slide
+	var dotSvg = $('section.dot svg'),
+		dotSlide = dotSvg.parent();
+	
+	dotSvg.attr({width: dotSlide.width(), height: dotSlide.height()});
 });
 
 function audio(){
@@ -119,7 +125,6 @@ var tick = 0;
 function playerGraph(){
 
 	var svg = d3.select('svg');
-	if (svg[0][0].clientWidth < 1){ return; }
 
 	tick = tick + 1;
 
@@ -127,8 +132,8 @@ function playerGraph(){
 
 	dot.enter()
 		.append('circle')
-		.attr('cx', svg[0][0].clientWidth / 2 )
-		.attr('cy', svg[0][0].clientHeight / 2 )
+		.attr('cx', parseInt(svg[0][0].getAttribute('width')) / 2 )
+		.attr('cy', parseInt(svg[0][0].getAttribute('height')) / 2 )
 		// .attr('r', function(d){ return d * 10; })
 		.attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8); });
 
