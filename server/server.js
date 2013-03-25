@@ -7,11 +7,13 @@ Meteor.publish("allplayers", function(){
 
 // Bring oot yer dead.
 Meteor.setInterval(function(){
+	
 	var timestamp = now();
+	
 	Players.remove({ lastActive: { $lt: timestamp - deadAfter } }, function(err){
 		if(!err){
 			console.log("Reaping occured", timestamp);
-			console.log("Now we have ", Players.find().count());
+			console.log("Now we have", Players.find().count());
 		} else {
 			console.log(err);
 		}

@@ -13,7 +13,18 @@ li{
 }
 
 pre {
-	font-size: 30px;
+	font-size: 40px;
 	color: white;
 	background-color: #333;
+	background-color: rgba(30,30,30,0.98);
+	border-radius: 10px;
+}
+
+.hi-viz {
+	height: 100%;
+	padding: 1px 40px 60px;
+	margin:  0px -40px;
+	background-color: #333;
+	background: rgba(0,0,0,0.4);
+	border-radius: 10px
 }
