@@ -9,13 +9,24 @@ Meteor.startup(function(){
 	window.startTime = now();
 
 	// Setup the slideshow. 
-	stack();
+	var slideshow = stack();
+	
+	slideshow.on('activate', function(index) {
+		console.log('Slide activated', index);
+		
+		var player = retrieveOrCreatePlayer();
+		
+		Players.update(player._id, {$set: {slideNumber: index}});
+	});
 
 	audio();
 
 	// Set up the current user once the Players collection is ready.
-	Meteor.subscribe('allplayers', function(){	
-		retrieveOrCreatePlayer();
+	Meteor.subscribe('allplayers', function() {
+		
+		var player = retrieveOrCreatePlayer();
+		
+		slideshow.position(player.slideNumber || 0);
 	});	
 
 	// Watch for changes
@@ -25,7 +36,14 @@ Meteor.startup(function(){
 			audio.coin.play();
 		},
 		changed: function(id, fields){
-			//console.log('Player updated', id, fields);
+			console.log('Player updated', id, fields);
+			
+			var player = retrieveOrCreatePlayer();
+			
+			if(id === player._id && fields.slideNumber !== undefined) {
+				console.log('Changing to slide', fields.slideNumber);
+				slideshow.position(fields.slideNumber);
+			}
 		},
 		removed: function(id){
 			console.log("Head Shot! Player " + id + " is dead.");
@@ -34,7 +52,7 @@ Meteor.startup(function(){
 
 	playerHeartbeat();
 
-	// Deps.autorun(playerGraph);
+	Deps.autorun(playerGraph);
 
 	// playerFace();
 	
@@ -78,7 +96,7 @@ function retrieveOrCreatePlayer(){
 
 	console.log('Your playerId is:', playerId);
 
-	return playerId;
+	return Players.findOne(playerId);
 }
 
 function updateLastActive(){
@@ -119,10 +137,6 @@ function activePlayers(){
 	return Players.find({ lastActive: { $gt: now() - deadAfter } });
 }
 
-Meteor.setInterval(function(){
-	playerGraph();	
-}, 1000);
-
 var tick = 0;
 
 function playerGraph(){
@@ -155,30 +169,12 @@ function playerGraph(){
 	dotUpdate.attr('transform', function() { return 'translate(' +(width / 2)+ ','+(height / 2)+')';})
 	dotUpdate.select('circle').attr('r', function(d){ return d * 5; });
 	dotUpdate.select('text').text(function(d) {return d;});
-	
+}
 
-
-	// Data: Join the data & it's representation
-	// var dots = svg.selectAll('circle').data(Players.find().fetch(), function(d){return d._id});
-
-	// // Enter: The set of new data points without an existing representation
-	// dots.enter()
-	// 		.append('circle');
-
-	// // Update: update all points with both data and representation. The circles created during the enter() step above are also updated.
-	// dots.transition()
-	// 		.attr("cx", function(d) { return (tick * 100) % svg[0][0].clientWidth } )
-	// 		.attr("cy", function(d) { return 10 } )
-	// 		.attr("r", function(d) { return 4 } )
-	// 		.attr('fill', function(d) { return "#991111" });
-	// 		// .attr('fill', function(d) { return "#" + Math.random().toString(16).slice(2, 8) });
-
-	// // Exit: the set of representations without a data
-	// dots.exit()
-	// 		.transition()
-	// 		.attr("fill", '#FFFFFF').attr('r', 0)
-	// 		.remove();
-
+function allYourSlideAreBelongToUs() {
+	var player = retrieveOrCreatePlayer();
+	console.log('Requesting all players switch to slide', player.slideNumber);
+	Meteor.call('updateAllSlideNumbers', player.slideNumber);
 }
 
 // function playerFace(){
