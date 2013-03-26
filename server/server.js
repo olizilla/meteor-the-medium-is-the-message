@@ -44,8 +44,10 @@ Meteor.methods({
 		
 		console.log('Updating all slides to', number);
 		
-		Players.find().forEach(function(player) {
-			Players.update(player._id, {$set: {slideNumber: number}});
-		});
+		Players.update({}, { $set: { gotoSlide: number }} );
+
+		// Players.find().forEach(function(player) {
+		// 	Players.update(player._id, {$set: {slideNumber: number}});
+		// });
 	}
 });

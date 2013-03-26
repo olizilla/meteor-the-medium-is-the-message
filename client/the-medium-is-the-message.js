@@ -11,21 +11,12 @@ Meteor.startup(function(){
 	// Setup the slideshow. 
 	var slideshow = stack();
 	
-	var updateSlideNumberTimeoutId;
-	
 	slideshow.on('activate', function(index) {
 		console.log('Slide activated', index);
 		
-		Meteor.clearTimeout(updateSlideNumberTimeoutId);
+		var player = retrieveOrCreatePlayer();
 		
-		// Update the slide number when the user has settled on a slide
-		updateSlideNumberTimeoutId = Meteor.setTimeout(function() {
-			
-			var player = retrieveOrCreatePlayer();
-			
-			Players.update(player._id, {$set: {slideNumber: index}});
-			
-		}, 1000);
+		Players.update(player._id, {$set: {slideNumber: index}});
 	});
 
 	audio();
@@ -36,23 +27,24 @@ Meteor.startup(function(){
 		var player = retrieveOrCreatePlayer();
 		
 		slideshow.position(player.slideNumber || 0);
+
+		// Watch for changes to me
+		Players.find(Session.get('playerId')).observeChanges({
+			
+			changed: function(id, fields){
+				if(id === player._id && fields.gotoSlide !== undefined) {
+					console.log('Changing to slide', fields.gotoSlide);
+					slideshow.position(fields.gotoSlide);
+				}
+			}
+		});
 	});	
 
-	// Watch for changes
+	// Watch for changes to others
 	Players.find({ lastActive: { $gt: now() - deadAfter } }).observeChanges({
 		added:function(id, fields){
 			console.log('New Challenger Appears:', id);
 			audio.coin.play();
-		},
-		changed: function(id, fields){
-			console.log('Player updated', id, fields);
-			
-			var player = retrieveOrCreatePlayer();
-			
-			if(id === player._id && fields.slideNumber !== undefined) {
-				console.log('Changing to slide', fields.slideNumber);
-				slideshow.position(fields.slideNumber);
-			}
 		},
 		removed: function(id){
 			console.log("Head Shot! Player " + id + " is dead.");
@@ -85,6 +77,11 @@ function retrieveOrCreatePlayer(){
 		var playerId = Players.insert({ created: justNow, lastActive: justNow });
 		window.localStorage['playerId'] = playerId;
 		return playerId;
+	}
+
+	if (Session.get('playerId')){
+		// return early as we already know who you are
+		return Players.findOne(Session.get('playerId'));
 	}
 
 	var playerId = window.localStorage['playerId'];
@@ -125,7 +122,7 @@ function playerHeartbeat(){
 
 		Meteor.setTimeout(function(){ playerHeartbeat(); }, heartbeatInterval); // 
 
-		console.log('YOU ARE ALIVE!', timestamp);
+		// console.log('YOU ARE ALIVE!', timestamp);
 
 	} else {
 		console.log('YOU ARE DEAD!', now());
