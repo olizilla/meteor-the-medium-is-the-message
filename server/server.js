@@ -38,6 +38,14 @@ Meteor.methods({
 
 	ping: function(){
 		return { serverTime: now() };
-	}
+	},
 	
+	updateAllSlideNumbers: function(number) {
+		
+		console.log('Updating all slides to', number);
+		
+		Players.find().forEach(function(player) {
+			Players.update(player._id, {$set: {slideNumber: number}});
+		});
+	}
 });
