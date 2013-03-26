@@ -11,12 +11,21 @@ Meteor.startup(function(){
 	// Setup the slideshow. 
 	var slideshow = stack();
 	
+	var updateSlideNumberTimeoutId;
+	
 	slideshow.on('activate', function(index) {
 		console.log('Slide activated', index);
 		
-		var player = retrieveOrCreatePlayer();
+		Meteor.clearTimeout(updateSlideNumberTimeoutId);
 		
-		Players.update(player._id, {$set: {slideNumber: index}});
+		// Update the slide number when the user has settled on a slide
+		updateSlideNumberTimeoutId = Meteor.setTimeout(function() {
+			
+			var player = retrieveOrCreatePlayer();
+			
+			Players.update(player._id, {$set: {slideNumber: index}});
+			
+		}, 1000);
 	});
 
 	audio();
