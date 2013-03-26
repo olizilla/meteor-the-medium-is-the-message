@@ -183,3 +183,7 @@ function allYourSlideAreBelongToUs() {
 	Meteor.call('updateAllSlideNumbers', player.slideNumber);
 }
 
+function fin(){
+	Meteor.call('fin');
+	console.log('Launched Fin');
+}

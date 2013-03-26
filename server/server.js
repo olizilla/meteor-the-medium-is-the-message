@@ -46,8 +46,28 @@ Meteor.methods({
 		
 		// Players.update({}, { $set: { gotoSlide: number }} );
 
+		// TODO: Bad code. Try again.
+		Players.find().forEach(function(player) {
+			Players.update(player._id, { $set: { gotoSlide: undefined }} );
+		});
+
 		Players.find().forEach(function(player) {
 			Players.update(player._id, { $set: { gotoSlide: number }} );
+		});
+	},
+
+	fin: function(){
+		console.log('FIN!');
+
+		var lastSlide = 30;
+
+		// TODO: Bad code. Try again.
+		Players.find().forEach(function(player) {
+			Players.update(player._id, { $set: { gotoSlide: undefined }} );
+		});
+
+		Players.find().forEach(function(player) {
+			Players.update(player._id, { $set: { gotoSlide: lastSlide }} );
 		});
 	}
 });
