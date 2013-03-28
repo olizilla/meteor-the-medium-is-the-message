@@ -168,9 +168,14 @@ function updatePlayerGraph(){
 	graph.enter().append('g').call(appendCircleAndNumber);
 	
 	var graphUpdate = graph.transition();
+
 	graphUpdate.attr('transform', function() { return 'translate(' + x + ','+ y +')';});
-	graphUpdate.select('circle').attr('r', function(d){ return d * 22; });
+
 	graphUpdate.select('text').text(function(d) {return d;});
+
+	graphUpdate.select('circle')
+		.attr('r', function(d){ return d * 22; })
+		.attr('fill', function() { return "#" + Math.random().toString(16).slice(2, 8); });
 }
 
 function allYourSlideAreBelongToUs() {
