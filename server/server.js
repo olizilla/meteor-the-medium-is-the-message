@@ -12,14 +12,15 @@ Meteor.setInterval(function(){
 	
 	Players.remove({ lastActive: { $lt: timestamp - deadAfter } }, function(err){
 		if(!err){
-			console.log("Reaping occured", timestamp);
-			console.log("Now we have", Players.find().count());
+			// Good.
+			// console.log("Reaping occured", timestamp);
+			// console.log("Now we have", Players.find().count());
 		} else {
 			console.log(err);
 		}
 	});
 	
-}, 2000);
+}, 5000);
 
 /* http://docs.meteor.com/#methods_header
  * Methods are remote functions that Meteor clients can invoke.

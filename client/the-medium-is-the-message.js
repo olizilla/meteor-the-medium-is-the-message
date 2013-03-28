@@ -52,17 +52,19 @@ Meteor.startup(function(){
 	});
 
 	playerHeartbeat();
-
-	Deps.autorun(playerGraph);
-
-	// playerFace();
 	
+	playerGraph();
+});
+
+function playerGraph(){
 	// Explicitly set the width & height of the SVG element on the dot slide to be the width & height of the slide
 	var dotSvg = $('section.dot svg'),
 		dotSlide = dotSvg.parent();
 	
 	dotSvg.attr({width: dotSlide.width(), height: dotSlide.height()});
-});
+
+	Deps.autorun(updatePlayerGraph);
+}
 
 function audio(){
 	audio.coin = new buzz.sound( "/audio/coin", { formats: [ "ogg", "mp3" ] }).setVolume(20);
@@ -143,38 +145,32 @@ function activePlayers(){
 	return Players.find({ lastActive: { $gt: now() - deadAfter } });
 }
 
-var tick = 0;
+function updatePlayerGraph(){
 
-function playerGraph(){
+	function appendCircleAndNumber(selection){
+		selection.append('circle');
+		selection.append('text')
+			.style('font-size', '36px')
+			.style('font-weight', 'bold')
+			.style('fill', '#fff')
+			.style('stroke', '#000')
+			.style('stroke-width', 2)
+			.style('text-anchor', 'middle')
+			.attr('dy', '.35em');
+	}
 
 	var svg = d3.select('svg');
-	var width = parseInt(svg[0][0].getAttribute('width'));
-	var height = parseInt(svg[0][0].getAttribute('height'));
+	var x = parseInt(svg.attr('width'), 10) / 2;
+	var y = parseInt(svg.attr('height'), 10) / 2;
+	
+	var graph = svg.selectAll('g').data([activePlayers().count()]);
 
-	tick = tick + 1;
+	graph.enter().append('g').call(appendCircleAndNumber);
 	
-	var dot = svg.selectAll('g').data([Players.find().count()]);
-	
-	var dotEnter = dot.enter().append('g');
-	
-	dotEnter.append('circle')
-		.attr('fill', function() { return "#" + Math.random().toString(16).slice(2, 8); });
-	
-	dotEnter.append('text')
-		.style('font-size', '36px')
-		.style('font-weight', 'bold')
-		.style('fill', '#fff')
-		.style('stroke', '#000')
-		.style('stroke-width', 2)
-		.text(function(d) {return d;})
-		.style('text-anchor', 'middle')
-		.attr('dy', '.35em');
-	
-	var dotUpdate = dot.transition();
-	
-	dotUpdate.attr('transform', function() { return 'translate(' +(width / 2)+ ','+(height / 2)+')';})
-	dotUpdate.select('circle').attr('r', function(d){ return d * 5; });
-	dotUpdate.select('text').text(function(d) {return d;});
+	var graphUpdate = graph.transition();
+	graphUpdate.attr('transform', function() { return 'translate(' + x + ','+ y +')';});
+	graphUpdate.select('circle').attr('r', function(d){ return d * 22; });
+	graphUpdate.select('text').text(function(d) {return d;});
 }
 
 function allYourSlideAreBelongToUs() {
@@ -184,6 +180,10 @@ function allYourSlideAreBelongToUs() {
 }
 
 function fin(){
+	stack().position(30);
+}
+
+function finAll(){
 	Meteor.call('fin');
 	console.log('Launched Fin');
 }

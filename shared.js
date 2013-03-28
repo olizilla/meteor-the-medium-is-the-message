@@ -4,7 +4,7 @@
  */
 
 var heartbeatInterval = 5000; //ms
-var deadAfter = heartbeatInterval + 2000; //ms
+var deadAfter = heartbeatInterval + 5000; //ms
 
 function now(){
 	return Date.now();
