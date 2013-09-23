@@ -3,12 +3,8 @@
  * Common collections for client and server.
  */
 
-var heartbeatInterval = 5000; //ms
-var deadAfter = heartbeatInterval + 5000; //ms
-
-function now(){
-	return Date.now();
-}
+heartbeatInterval = 5000; //ms
+deadAfter = heartbeatInterval + 5000; //ms
 
 Players = new Meteor.Collection("players");
 

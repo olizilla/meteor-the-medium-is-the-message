@@ -8,7 +8,7 @@ Meteor.publish("allplayers", function(){
 // Bring oot yer dead.
 Meteor.setInterval(function(){
 	
-	var timestamp = now();
+	var timestamp = Date.now();
 	
 	Players.remove({ lastActive: { $lt: timestamp - deadAfter } }, function(err){
 		if(!err){
@@ -38,7 +38,7 @@ Meteor.methods({
 	},
 
 	ping: function(){
-		return { serverTime: now() };
+		return { serverTime: Date.now() };
 	},
 	
 	updateAllSlideNumbers: function(number) {

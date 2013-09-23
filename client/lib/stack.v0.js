@@ -1,6 +1,6 @@
 /* Snaffled from Mike Bostock: https://github.com/mbostock/stack */
 
-var stack = function() {
+stack = function() {
   var stack = {},
       event = d3.dispatch("activate", "deactivate"),
       section = d3.selectAll("section"),

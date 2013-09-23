@@ -26,7 +26,7 @@
 // THE SOFTWARE.
 // ----------------------------------------------------------------------------
 
-var buzz = {
+buzz = {
     defaults: {
         autoplay: false,
         duration: 5000,

@@ -6,7 +6,7 @@
  */
 Meteor.startup(function(){
 
-	window.startTime = now();
+	window.startTime = Date.now();
 
 	// Setup the slideshow. 
 	var slideshow = stack();
@@ -41,7 +41,7 @@ Meteor.startup(function(){
 	});	
 
 	// Watch for changes to others
-	Players.find({ lastActive: { $gt: now() - deadAfter } }).observeChanges({
+	Players.find({ lastActive: { $gt: Date.now() - deadAfter } }).observeChanges({
 		added:function(id, fields){
 			console.log('New Challenger Appears:', id);
 			audio.coin.play();
@@ -75,7 +75,7 @@ function audio(){
 function retrieveOrCreatePlayer(){
 
 	function createPlayer() {
-		var justNow = now();
+		var justNow = Date.now();
 		var playerId = Players.insert({ created: justNow, lastActive: justNow });
 		window.localStorage['playerId'] = playerId;
 		return playerId;
@@ -108,7 +108,7 @@ function retrieveOrCreatePlayer(){
 }
 
 function updateLastActive(){
-	var timestamp = now(); // see shared.js
+	var timestamp = Date.now(); // see shared.js
 	Players.update(Session.get('playerId'), { $set: { lastActive: timestamp } });
 	return timestamp;
 }
@@ -127,7 +127,7 @@ function playerHeartbeat(){
 		// console.log('YOU ARE ALIVE!', timestamp);
 
 	} else {
-		console.log('YOU ARE DEAD!', now());
+		console.log('YOU ARE DEAD!', Date.now());
 	}
 }
 
@@ -142,7 +142,7 @@ function startHeart(){
 }
 
 function activePlayers(){
-	return Players.find({ lastActive: { $gt: now() - deadAfter } });
+	return Players.find({ lastActive: { $gt: Date.now() - deadAfter } });
 }
 
 function updatePlayerGraph(){
