@@ -28,3 +28,16 @@ pre {
 	background: rgba(0,0,0,0.6);
 	border-radius: 10px
 }
+.headshot{
+	width:160px; height:160px;
+	border:solid 6px #EFE;
+}
+.headshot:hover{
+	border-color: gold;
+}
+.video {
+	text-align: center;
+}
+.video iframe{
+	margin-top: -110px;
+}
