@@ -1,27 +1,26 @@
+LXJS!
 
-METEOR! So what is it?
+SHIPIT!
 
-The short answer is:
+WHAT THE HECK IS METEOR? AND HOW IS IT GONNA HELP ME SHIP IT?
 
-Meteor does awesome fast.
+It's a full stack javascript framework that does awesome... Fast.
 
-It's a javascript framework that makes it possibe to build
-
-...real-time reactive web-apps in a day
+It let's you build real-time reactive web-apps in a day.
 
 How can I spout such hyperbole?
 
-I've done it.
+Well, I started playing with Meteor in Jan, and got so excited that I organised
 
-I heard about Meteor in Jan, started playing with it, and got so excited that I organised
+The Meteor London meetup.
 
-Meteor London...
+It's difficult to find anyone who can claim to be a Meteor expert, 
 
-Meteor is still pretty new, and there aren't many people I'd believe if they called them self a Meteor expert,
+so instead of getting guest speakers it's more of a self help group and demo-scene, 
 
-instead of getting guest speakers it's more of a self help group and demo-scene, 
+everyone is encouraged to build something and show it off. 
 
-everyone is encouraged to build something and show it off. Usually followed by a beverage.
+Usually followed by a beverage.
 
 The first event was in Febuary
 
@@ -35,9 +34,19 @@ I'm pretty sure that's where the idea for my first Meteor app came from...
 
 I wanted a way of watching people converging on the meetup venue. (or not...)
 
+Also wanted to know where people were tavelling from, so I could pick a better venue for next time
+
 - Slide goto
 
-A live map, basically opt-in browser based tracking... showing you where you and eveyone else is.
+And so GOTO!
+
+Everyone loves a full screen map, and obviously a style bonous a monochrome map by stamen design
+
+Pins on maps, that's great, but what about
+
+LIVE PINS ON MAPS POWERED BY BROWSER GEOLOCATION...
+
+...basically opt-in browser based tracking... showing you where you and eveyone else is.
 
 It's super simple, just watching the browser geolocation object and plotting it on the map...
 
@@ -45,21 +54,19 @@ Let's try it:
 
 - DEMO goto.meteor.com
 
+- Slide goto details
+
 So there we all are... 
 
 The fun part is that the pin positions are LIVE, LIVE, LIVE.
 
-In fact Alan & I fired it up on our mobiles as we rode the bus to the venue,
-and got ridiculously excited as the map pins followed us down the street.
-he's got an iphone and I've got an Android, and predictably his pin was always slightly ahead and slightly more accurate...
-
-- Slide goto details
-
 ...And better still, it was built in _1 day_ with no previous Meteor experience.
 
-- Slide "say what?"
+And it worked! 
 
-"SAY WHAT?" I was pretty please with meyself at this point
+Alan & I took the bus to the meetup and watched our pins dance down the rode.
+
+So I was pretty please with meyself at this point
 
 People DID turn up and we talked about how to Meteor...
 
@@ -67,7 +74,62 @@ People DID turn up and we talked about how to Meteor...
 
 - Slide blackboard.meteor.com
 
+The Canvas element is fun, but what about
 
+LIVE COLLABORATIVE CANVAS DOODLING!
+
+
+
+
+
+
+
+------------------
+Who is it for?
+- People with ideas, who like a rapid feeback loop.
+
+Who is it not for?
+- hard core, magic fearing, grizzled server-side developers.
+
+
+Take homes
+- Meteor minimises friction, allowing you to implement ideas quickly.
+Focus on your user experience, build an html prototype, Add collections to share data, Add the accounts package to handle user auth, run th deploy command, rinse, repeat.
+
+Testing ideas is more important than testing code
+- on a human level...
+  - All the developers I've met take the work personally.
+  - You sweat the small stuff.
+    - Conciously or not, you expend a lot of energy, weighing up all the consequences of you decisions
+  - It keeps you awake at night.
+  - If that sounds familiar, be warned. If you are not careful about which projects you get involved with,
+  If you pour your all your energy into a thing before checking that it's a good idea,
+  it's pretty easy to wake up, 30 years old, with very little of that code you cared so much about, still in active service.
+  And that can be hard. Legacy is a grand word, but if I were a carpenter, I'd a least take some satisfaction that I'd made some good tables, and they were still out there, keeping plates of the ground.
+
+- 100% unit test coverage for a bad idea leaves you with smug staisfaction of a job well done
+ and a very robust bad idea. 
+
+ You also probably didn't see your friends in a while.
+
+If you want to test ideas, you've got to minimise friction.
+
+Software developement as an activity oscillates between poetry and engineering.
+Before you have a solid specification, you need to work with a bunch of other people
+who possibly don't know what the web is capable of as well as you do.
+At that point you need to crank out ideas.
+"A picture is worth 1000 words"
+"A prototype is worth 1000 pictures"
+
+OAuth, websockets, nosql... are all transient implementation details. 
+
+Any time you have to speand fiddling with them, is time away from focusing on the important things.
+
+IS MY APP USEFUL YET? IS IT A JOY TO USE?
+
+
+
+(Please do keep testing your code)
 
 
 

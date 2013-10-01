@@ -60,7 +60,7 @@ Meteor.methods({
 	fin: function(){
 		console.log('FIN!');
 
-		var lastSlide = 30;
+		var lastSlide = 43;
 
 		// TODO: Bad code. Try again.
 		Players.find().forEach(function(player) {
