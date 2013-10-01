@@ -15,6 +15,8 @@ Meteor.startup(function(){
 		console.log('Slide activated', index);
 		
 		var player = retrieveOrCreatePlayer();
+
+		if (!player) { return console.log('Player not ready yet...')}
 		
 		Players.update(player._id, {$set: {slideNumber: index}});
 	});
@@ -26,7 +28,7 @@ Meteor.startup(function(){
 		
 		var player = retrieveOrCreatePlayer();
 		
-		slideshow.position(player.slideNumber || 0);
+		//  slideshow.position(player.slideNumber || 0);
 
 		// Watch for changes to me
 		Players.find(Session.get('playerId')).observeChanges({
@@ -178,7 +180,7 @@ function updatePlayerGraph(){
 		.attr('fill', function() { return "#" + Math.random().toString(16).slice(2, 8); });
 }
 
-function allYourSlideAreBelongToUs() {
+allYourSlideAreBelongToUs = function() {
 	var player = retrieveOrCreatePlayer();
 	console.log('Requesting all players switch to slide', player.slideNumber);
 	Meteor.call('updateAllSlideNumbers', player.slideNumber);

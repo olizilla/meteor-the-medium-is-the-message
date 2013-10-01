@@ -48,13 +48,15 @@ Meteor.methods({
 		// Players.update({}, { $set: { gotoSlide: number }} );
 
 		// TODO: Bad code. Try again.
-		Players.find().forEach(function(player) {
-			Players.update(player._id, { $set: { gotoSlide: undefined }} );
-		});
+		// Players.find().forEach(function(player) {
+		// 	Players.update(player._id, { $set: { gotoSlide: undefined }} );
+		// });
 
-		Players.find().forEach(function(player) {
-			Players.update(player._id, { $set: { gotoSlide: number }} );
-		});
+		// Players.find().forEach(function(player) {
+		// 	Players.update(player._id, { $set: { gotoSlide: number }} );
+		// });
+
+		Players.update({}, { $set: { gotoSlide: number }}, { multi: true })
 	},
 
 	fin: function(){
@@ -62,13 +64,15 @@ Meteor.methods({
 
 		var lastSlide = 43;
 
-		// TODO: Bad code. Try again.
-		Players.find().forEach(function(player) {
-			Players.update(player._id, { $set: { gotoSlide: undefined }} );
-		});
+		Players.update({}, { $set: { gotoSlide: lastSlide }}, { multi: true })
 
-		Players.find().forEach(function(player) {
-			Players.update(player._id, { $set: { gotoSlide: lastSlide }} );
-		});
+		// TODO: Bad code. Try again.
+		// Players.find().forEach(function(player) {
+		// 	Players.update(player._id, { $set: { gotoSlide: undefined }} );
+		// });
+
+		// Players.find().forEach(function(player) {
+		// 	Players.update(player._id, { $set: { gotoSlide: lastSlide }} );
+		// });
 	}
 });
