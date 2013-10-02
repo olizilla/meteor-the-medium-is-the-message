@@ -30,10 +30,6 @@ pre .integer {
     color: #22C0FF;
 }
 
-pre .storage {
-    color: #6080FF;
-}
-
 /* This includes regexes */
 pre .string {
     color: #FF2020;
@@ -57,4 +53,24 @@ pre .support {
 
 pre .variable.class {
   color: #FF8000;
+}
+
+pre .storage {
+    color: #6080FF;
+}
+
+pre .tag .tag,
+pre .tag.close {
+    color:#AAA;
+}
+pre .attribute {
+    color: #86DC0C
+}
+pre .quote,
+pre .value {
+    color:#E0D75A
+}
+
+pre .operator{
+ color: white;
 }

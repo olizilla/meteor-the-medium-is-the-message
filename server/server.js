@@ -44,35 +44,7 @@ Meteor.methods({
 	updateAllSlideNumbers: function(number) {
 		
 		console.log('Updating all slides to', number);
-		
-		// Players.update({}, { $set: { gotoSlide: number }} );
-
-		// TODO: Bad code. Try again.
-		// Players.find().forEach(function(player) {
-		// 	Players.update(player._id, { $set: { gotoSlide: undefined }} );
-		// });
-
-		// Players.find().forEach(function(player) {
-		// 	Players.update(player._id, { $set: { gotoSlide: number }} );
-		// });
 
 		Players.update({}, { $set: { gotoSlide: number }}, { multi: true })
-	},
-
-	fin: function(){
-		console.log('FIN!');
-
-		var lastSlide = 43;
-
-		Players.update({}, { $set: { gotoSlide: lastSlide }}, { multi: true })
-
-		// TODO: Bad code. Try again.
-		// Players.find().forEach(function(player) {
-		// 	Players.update(player._id, { $set: { gotoSlide: undefined }} );
-		// });
-
-		// Players.find().forEach(function(player) {
-		// 	Players.update(player._id, { $set: { gotoSlide: lastSlide }} );
-		// });
 	}
 });

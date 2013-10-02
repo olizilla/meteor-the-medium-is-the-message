@@ -41,3 +41,7 @@ pre {
 .video iframe{
 	margin-top: -110px;
 }
+.strike{
+	color:#744;
+	text-decoration: line-through;
+}

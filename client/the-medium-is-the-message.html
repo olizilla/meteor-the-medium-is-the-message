@@ -1,12 +1,13 @@
 <head>
 	<title>Meteor: The Medium Is the Message</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">	
 </head>
 
 <body>
 
 	<section>
 		<h1><b>Meteor</b>:<br/> The Medium <i>is</i> the Message</h1>
-		<p>Because shipping it should be fun</p>
+		<p>Build more things</p>
 		<p class="grey">By <a href="https://twitter.com/olizilla">@olizilla</a></p>
 	</section>
 
@@ -20,8 +21,19 @@
 		<p>Say what?</p>
 	</section>
 
-	<section>
-		<h1>I do Meteor London</h1>
+<section>
+	<h1>Meteor London</h1>
+	<p>The "oldest" and 
+		<span class="strike">2<sup>nd</sup></span>
+		<span class="strike">3<sup>rd</sup></span>
+		<a href="http://meteor.meetup.com/">2<sup>nd</sup> largest <br>Meteor meetup in the world.</a>
+	</p>
+<!-- 		<p>A monthly demo-centric early-adopter support-group.
+	</p> -->
+</section>
+
+<section class="stack active" id="1" style="z-index: 37;">
+		<h1>Meteor London is:</h1>
 		<p>A monthly demo-centric early adopter support group.
 		</p>
 		<p>
@@ -44,7 +56,12 @@
 				<img class="headshot" src="http://photos4.meetupstatic.com/photos/member/3/1/c/1/member_9732737.jpeg" title="@achingbrain" />
 			</a>
 		</p>
-	</section>	
+</section>
+
+<section style="background-image: url(/beverage.jpg); background-size: cover; z-index: 34; background-position: initial initial; background-repeat: no-repeat no-repeat;">
+		<h1>Show &amp; Tell &amp; Ale</h1>
+		<p>Build a thing, show off, compare notes.</p>
+	</section>
 
 	<section>
 		<p style="margin:0;">
@@ -64,7 +81,25 @@
 	</section>
 
 	<section class="video youtube">
-		<iframe width="960" height="720" src="//www.youtube.com/embed/qQ3hCdiZnY4" frameborder="0" allowfullscreen></iframe>
+	<!-- <section> -->
+		<h1 style="margin-top:-100px">
+			<a href="http://www.youtube.com/embed/qQ3hCdiZnY4" target="_blank">Gratuitous Drone Demo</a>
+		</h1>
+		<a href="http://www.youtube.com/embed/qQ3hCdiZnY4" target="_blank">
+		<div class="nodebot" style="margin: 0 auto">
+		  <div class="icon">
+		    <div class="bobble"></div>
+		    <div class="antenna"></div>
+		    <div class="head">
+		      <div class="eye left"></div>
+		      <div class="eye right"></div>
+		    </div>
+		    <div class="neck"></div>
+		    <div class="neck"></div>
+		  </div>
+		</div>
+		</a>
+		<!-- <iframe width="960" height="720" src="//www.youtube.com/embed/qQ3hCdiZnY4" frameborder="0" allowfullscreen></iframe> -->
 	</section>
 
 	<section>
@@ -136,6 +171,14 @@
 		</p>
 	</section>
 
+	<section>
+		<h1>Batteries Included</h1>	
+		<ul>
+			<li>CSS &amp; JS munged, cached &amp; versioned</li>
+			<li>Hot code reload; save a file, see a change</li>
+		</ul>
+	</section>	
+
 	<section style="background-image:url(/big-lebowski-lick.jpg); text-align:center">
 		<h1 style="margin-top:100px">KISS</h1>
 		<p>Meteor keeps it simple...</p>
@@ -158,32 +201,42 @@
 		</code></pre>
 	</section>
 
-	<section>
-		<h1>Batteries Included</h1>	
-		<ul>
-			<li>CSS &amp; JS munged, cached &amp; versioned</li>
-			<li>Hot code reload; save a file, see a change</li>
-		</ul>
-	</section>	
-
-	<section>
-		<h1>Sharing data is simple</h1>
-		<p>Add to a collection; other users see the change</p>
-		<pre><code data-language="js">
- var Things = new Meteor.Collection('things')
- Things.insert({ what: 'awesome' })
-		</code></pre>
+	<section style="background-image:url(/lebow-saddam.jpg);">
+		<h1 style="margin-top:-30px">Sharing data is simple</h1>
 	</section>
 
 	<section>
-		<h1>Reactivity is simple</h1>
-		<p>Templates re-render when the collection changes</p>		
+		<p>Add to a collection; all users see the change</p>
 		<pre><code data-language="js">
- Template.awesomeThings.all = function () {
-   return Things.find({ what: 'awesome' })
+ var Things = new Meteor.Collection('things')
+ Things.insert({ name: 'Marmot' })
+		</code></pre>		
+	</section>
+
+	<section style="background-image:url(/reactionary.jpg);">
+		<h1>Reactivity is simple</h1>
+<!-- 		<pre><code data-language="js">
+ Template.list.all = function () {
+   return Things.find({ name: /awesome/i })
  }
-		</code></pre>
+		</code></pre> -->
 	</section>	
+
+	<section>
+<pre><code data-language="html">&lt;template name="theThings"&gt;
+  &lt;ul&gt;
+    {&#123;#each all&#125;}&lt;li&gt;{&#123;name&#125;}&lt;/li&gt;{&#123;/each&#125;}
+  &lt;/ul&gt;
+&lt;/template&gt;</code></pre>
+
+<pre><code data-language="js">
+Template.theThings.all = function () {
+ return Things.find()
+}
+</code></pre>
+
+<p>Template re-renders when the collection changes</p>
+	</section>
 
 	<section>
 		<h1>Authentication is simple</h1>
@@ -217,7 +270,7 @@
 		<p>Hot code reload; save a file, see a change.</p>
 	</section> -->
 
-	<section style="background-image:url(/dude-on-rug.png);">
+	<section style="background-image:url(/dude-on-rug.jpg);">
 		<!-- <div class="hi-viz"> -->
 			<h1>The magic is simple</h1>
 			<p>
@@ -250,11 +303,8 @@
 		</div>
 	</section>
 
-	<section style="background-image:url(/the-big-lebowski-rug.jpg);">
-		<div class="hi-viz">
-			<h1>JS ALL THE THINGS</h1>
-			<p></p>
-		</div>
+	<section style="background-image:url(/ideas.jpg);">
+		<h1>Test your ideas</h1>
 	</section>	
 
 	<section style="text-align:center; padding-top:20px;">
@@ -312,7 +362,7 @@
 	</section>
 
 	<section style="background:black">
-		<h1 style="text-align:center"><a href="javascript:finAll()">Fin()?</a></h1>
+		<h1 style="text-align:center"><a href="javascript:fin()">Fin()?</a></h1>
 	</section>
 	<section></section>
 	<section></section>

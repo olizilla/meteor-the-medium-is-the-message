@@ -1,3 +1,7 @@
+Note: get html highlighting working.
+
+----
+
 LXJS!
 
 SHIPIT!
@@ -7,18 +11,20 @@ WHAT THE HECK IS METEOR? AND HOW IS IT GONNA HELP ME SHIP IT?
 It's a full stack javascript framework that does awesome... Fast.
 
 It let's you build real-time reactive web-apps in a day.
+  
+How can I make such outrageous claims?
 
-How can I spout such hyperbole?
+I do Meteor London...
 
-Well, I started playing with Meteor in Jan, and got so excited that I organised
+the "oldest"
 
-The Meteor London meetup.
+I really wanted to find some other people using it, to bounce ideas of and get some free support!
 
-It's difficult to find anyone who can claim to be a Meteor expert, 
+It turns out it's difficult to find a Meteor expert to come and speak at user group
 
-so instead of getting guest speakers it's more of a self help group and demo-scene, 
+so instead it turned into a self help group and demo-scene...
 
-everyone is encouraged to build something and show it off. 
+everyone is encouraged to build something interesting in Meteor and then come and show it off. 
 
 Usually followed by a beverage.
 
@@ -60,6 +66,10 @@ So there we all are...
 
 The fun part is that the pin positions are LIVE, LIVE, LIVE.
 
+but we're all sat still, so to demo the true joy of reactivity,
+
+
+
 ...And better still, it was built in _1 day_ with no previous Meteor experience.
 
 And it worked! 
@@ -77,6 +87,59 @@ People DID turn up and we talked about how to Meteor...
 The Canvas element is fun, but what about
 
 LIVE COLLABORATIVE CANVAS DOODLING!
+
+DEMO: Blackboard
+
+Built in 1 hour in a pub in 50 lines of JS
+
+Go draw!
+
+And it works on mobile too... During the meetup we propped someones phone up on the bar
+
+somewhere else, an unseen doodler made this beautiful work of art
+
+and later
+
+an unseen doodler made this beautiful work of art!
+
+And we learnt some interesting things about letting people share a drawing surface...
+
+so while some one is drawing something aamazing, some else is usually writing sware words on it, or adding genitalia. Or worse, really intensly corssing out your work and writing NO in big letters.
+
+So there's some work to do in coming with ettiqute for live collaboration...
+
+Coming up with new apps each month for a meetup is a great way to give yourself a deadline and learn a thing, but coming up with new ideas gets hard, so we scraped the barrel and built our own version of the OH HAI WORLD of real time apps...
+
+A Chat room...
+
+A TEXT AWESOMISING CHAT ROOM
+
+DEMO...
+
+That uses an obsucre text encyption algorithm called figlet, keeping you safe from NSA snooping while you troll each other with ascii art.
+
+In the spriit of "What the heck why not", we thought we start abusing the medium.
+
+FOAM!
+
+A communal hot tub photo party
+
+getUserMedia -> Canvas -> DataURI -> monogo collection -> ALL THE PEOPLE.
+
+
+
+----------------------------
+
+Getting started is simple
+
+4 commands
+
+hipster install, it didn't trash my machine
+
+Gets you Node + MongoDB + SockJS + Handlebars + some Meteor magic.
+
+
+
 
 
 
