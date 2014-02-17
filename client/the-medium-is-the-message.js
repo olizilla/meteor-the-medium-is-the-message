@@ -187,10 +187,10 @@ allYourSlideAreBelongToUs = function() {
 }
 
 fin = function(){
-	Meteor.call('updateAllSlideNumbers', 43);
+	Meteor.call('updateAllSlideNumbers', 47);
 	console.log('Launched Fin');
 }
 
 gotofin = function(){
-	stack().position(43);
+	stack().position(47);
 }
